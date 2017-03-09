@@ -10,6 +10,7 @@
   <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
   <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script type="text/javascript" src="bower_components/angular-clipboard/angular-clipboard.js"></script>
+  <script type="text/javascript" src="bower_components/angular-filter/dist/angular-filter.js"></script>
   <script type="text/javascript" src="js/compare.js"></script>
   <script type="text/javascript" src="js/revealer.js"></script>
   <script type="text/javascript" src="config.js"></script>
@@ -28,7 +29,9 @@
 
   <div class="alert alert-warning" role="alert" ng-if="testPairs.length-passedCount">
     <p>To accept failing VRTs you must add their names to the <code>CHANGELOG.md</code> file:</p>
-    <span ng-repeat="thisTestPair in testPairs">{{ thisTestPair.meta.pair.label }}<span>
+    <ul class="list-unstyled">
+      <li ng-repeat="thisTestPair in testPairs | filter: !'passed' | unique: 'meta.pair.label'">{{ thisTestPair.meta.pair.label }}</li>
+    </ul>
   </div>
 
   <div class="no-print summaryControls">
